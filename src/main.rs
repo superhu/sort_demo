@@ -3,12 +3,10 @@ extern crate rand;
 use std::fs;
 use std::path::Path;
 
-//use rand::Rng;
 use rand::prelude::*;
 use std::fs::DirEntry;
 use std::io;
 
-//use std::convert::TryInto;
 
 fn main() {
 //    let  arr =  &mut [2,3,1,5,6,4];
@@ -99,7 +97,6 @@ fn gen_code() -> String {
 fn gen_num(start: i32, end: i32, size: usize) -> Vec<i32> {
     let mut list1 = Vec::new();
 
-
     loop {
         let n1 = rand::thread_rng().gen_range(start, end);
         if !list1.contains(&n1) {
@@ -123,10 +120,7 @@ fn list_file(path: &str) {
         .filter_map(|d| d.path().to_str().and_then(|f| if f.ends_with(".jpg") { Some(d) } else { None }))
         .for_each(|f| println!("{:?}", f));
 
-//    paths
-//        .filter_map(Result::ok)
-//        .filter_map(|d| d.path().is_dir())
-//        .filter_map(|d| d.path().to_str().and_then(|f| list_file(f);Some(d)));
+
 }
 
 /// ## 3.遍历文件
@@ -145,6 +139,30 @@ fn visit_dirs(dir: &Path, fn_print_path: &Fn(&DirEntry)) -> io::Result<()> {
     Ok(())
 }
 
+fn combin(m:i32,vec:&mut Vec<i32>)->i32{
+    vec.sort();
+    let max = m/vec.0+1;
+    for i in 0..max{
+
+    }
+
+
+
+
+
+    0
+}
+
+fn plus(a:i32,n:i32,m:i32)->Option<i32>{
+    if a*n = m {
+       println!("{}",a+"x"+n);
+       Some(a*n)
+    }else if a*n < m {
+
+    }else{
+
+    }
+}
 
 #[test]
 fn test_sort() {
@@ -157,3 +175,4 @@ fn test_sort() {
 fn test_gen_code() {
     println!("{}", gen_code());
 }
+
