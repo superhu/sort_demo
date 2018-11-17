@@ -18,23 +18,20 @@ fn main() {
 
 
     let path = Path::new("D:\\Pictures\\images\\1111");
-
-
-   let _ = visit_dirs(path,&print_filter_dir_entry);
+    let _ = visit_dirs(path, &print_filter_dir_entry);
 }
 
 
-fn print_filter_dir_entry(p:&DirEntry){
-
-
+fn print_filter_dir_entry(p: &DirEntry) {
     let filename = &p.file_name();
     let ff = filename.to_str();
     match ff {
-        Some(f) => println!("{:?}",f),
+        Some(f) =>
+            if f.to_lowercase().ends_with("jpg") || f.to_lowercase().ends_with("jpeg") || f.to_lowercase().ends_with("png") {
+                println!("{:?}", f)
+            },
         None => (),
     }
-
-
 }
 
 ///## 1.数组排序
@@ -114,23 +111,22 @@ fn gen_num(start: i32, end: i32, size: usize) -> Vec<i32> {
     }
     list1
 }
+
 /// ## 3.遍历文件
 #[allow(dead_code)]
 fn list_file(path: &str) {
     let paths = fs::read_dir(path).unwrap();
 
 
-
     paths
         .filter_map(Result::ok)
-        .filter_map(|d| d.path().to_str().and_then(|f| if f.ends_with(".jpg"){Some(d)} else { None }))
-        .for_each(|f| println!("{:?}",f));
+        .filter_map(|d| d.path().to_str().and_then(|f| if f.ends_with(".jpg") { Some(d) } else { None }))
+        .for_each(|f| println!("{:?}", f));
 
 //    paths
 //        .filter_map(Result::ok)
 //        .filter_map(|d| d.path().is_dir())
 //        .filter_map(|d| d.path().to_str().and_then(|f| list_file(f);Some(d)));
-
 }
 
 /// ## 3.遍历文件
@@ -142,14 +138,12 @@ fn visit_dirs(dir: &Path, fn_print_path: &Fn(&DirEntry)) -> io::Result<()> {
             if path.is_dir() {
                 visit_dirs(&path, fn_print_path)?;
             } else {
-
                 fn_print_path(&entry);
             }
         }
     }
     Ok(())
 }
-
 
 
 #[test]
