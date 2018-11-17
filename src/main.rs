@@ -9,7 +9,6 @@ fn main() {
 
 //    sort(arr);
     gen_code();
-//    print!("{}",1.to_string());
 
 }
 
@@ -34,8 +33,8 @@ fn sort(arr: &mut [i32])->&mut [i32]{
 
 }
 
-#[warn(dead_code)]
-fn gen_code() {
+
+fn gen_code() -> String{
 
     let pool1 = (1..36).collect::<Vec<i32>>();
 
@@ -46,6 +45,7 @@ fn gen_code() {
     let p2 = &mut gen_num(1,13,2);
 
     p1.sort();
+
 
     p2.sort();
 
@@ -76,9 +76,11 @@ fn gen_code() {
     }
     println!("pp2：{:?}",pp2);
 
-    let result = &(pp1.join(" ").to_string()) + &(pp2.join(" ").to_string());
+    let result = pp1.join(" ").to_string() +"_"+ &pp2.join(" ");
 
-    println!("{}",result);
+
+    println!("result：{:?}",result);
+    result
 
 
 
@@ -109,6 +111,10 @@ fn gen_num(start:i32,end:i32,size:usize)->Vec<i32>{
 fn test_sort(){
     let  arr =  &mut [2,3,1,5,6,4];
 
-//    sort(arr);
     assert_eq!([1,2,3,4,5,6],sort(arr))
+}
+
+#[test]
+fn test_gen_code(){
+    println!("{}",gen_code());
 }
