@@ -15,11 +15,15 @@ fn main() {
 //    gen_code();
 
 
-    let path = Path::new("D:\\Pictures\\images\\1111");
-    let _ = visit_dirs(path, &print_filter_dir_entry);
+//    let path = Path::new("D:\\Pictures\\images\\1111");
+//    let _ = visit_dirs(path, &print_filter_dir_entry);
+
+    let money = &mut 100;
+    let coins = &mut vec![1, 5, 10, 20, 50];
+    change(money, coins);
 }
 
-
+#[allow(dead_code)]
 fn print_filter_dir_entry(p: &DirEntry) {
     let filename = &p.file_name();
     let ff = filename.to_str();
@@ -119,11 +123,10 @@ fn list_file(path: &str) {
         .filter_map(Result::ok)
         .filter_map(|d| d.path().to_str().and_then(|f| if f.ends_with(".jpg") { Some(d) } else { None }))
         .for_each(|f| println!("{:?}", f));
-
-
 }
 
 /// ## 3.遍历文件
+#[allow(dead_code)]
 fn visit_dirs(dir: &Path, fn_print_path: &Fn(&DirEntry)) -> io::Result<()> {
     if dir.is_dir() {
         for entry in fs::read_dir(dir)? {
@@ -139,30 +142,33 @@ fn visit_dirs(dir: &Path, fn_print_path: &Fn(&DirEntry)) -> io::Result<()> {
     Ok(())
 }
 
-fn combin(m:i32,vec:&mut Vec<i32>)->i32{
-    vec.sort();
-    let max = m/vec.0+1;
-    for i in 0..max{
+///
+/// m 100
+/// vec [1,5,10,20,50]
+///
+fn change(money: &mut i32, coins: &mut Vec<i32>) -> i32 {
+    let len = coins.len();
+    let mut count = vec![0; len];
+    println!("count:{:?}",count);
 
+    coins.sort();
+
+    coins.reverse();
+
+    println!("{:?}", coins);
+    for i in 0..len {
+        while money > &mut coins[i] {
+            *money -= coins[i];
+            count[i] = count[i] + 1;
+        }
+        if count[i] != 0 {
+            println!("{}张{}元", count[i], coins[i]);
+        }
     }
-
-
-
-
 
     0
 }
 
-fn plus(a:i32,n:i32,m:i32)->Option<i32>{
-    if a*n = m {
-       println!("{}",a+"x"+n);
-       Some(a*n)
-    }else if a*n < m {
-
-    }else{
-
-    }
-}
 
 #[test]
 fn test_sort() {
